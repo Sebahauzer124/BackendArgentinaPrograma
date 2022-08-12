@@ -1,4 +1,4 @@
-
+  
 package com.portfolio.sh.Controller;
 
 import com.portfolio.sh.Service.ImpEducacionService;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontedprueba1.web.app")
 @RestController
 @RequestMapping("/educacion")
 public class EducacionController {
