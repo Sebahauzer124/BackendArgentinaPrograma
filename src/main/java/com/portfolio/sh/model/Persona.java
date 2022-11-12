@@ -3,6 +3,7 @@ package com.portfolio.sh.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,10 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-@Table(name = "personas")
+@Getter @Setter
 public class Persona {
 
     @Id
@@ -41,11 +44,11 @@ public class Persona {
     
     @JsonBackReference
     @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Educacion> educacionList=new HashSet<>();
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Experiencia> experienciaList=new HashSet<>();
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Skill> skillList=new HashSet<>();
+    private List<Educacion> educacionList;
+    @OneToMany(mappedBy = "persona")
+    private List<Experiencia> experienciaList;
+    @OneToMany(mappedBy = "persona")
+    private List<Skill> skillList;
 
     public Persona() {
     }
@@ -59,78 +62,7 @@ public class Persona {
         this.titulo = titulo;
     }
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long Id) {
-        this.Id = Id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getAcercaDe() {
-        return acercaDe;
-    }
-
-    public void setAcercaDe(String acercaDe) {
-        this.acercaDe = acercaDe;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Set<Educacion> getEducacionList() {
-        return educacionList;
-    }
-
-    public void setEducacionList(Set<Educacion> educacionList) {
-        this.educacionList = educacionList;
-    }
-
-    public Set<Experiencia> getExperienciaList() {
-        return experienciaList;
-    }
-
-    public void setExperienciaList(Set<Experiencia> experienciaList) {
-        this.experienciaList = experienciaList;
-    }
-
-    public Set<Skill> getSkillList() {
-        return skillList;
-    }
-
-    public void setSkillList(Set<Skill> skillList) {
-        this.skillList = skillList;
-    }
-
+ 
  
 }
 

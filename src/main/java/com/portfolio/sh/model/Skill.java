@@ -29,8 +29,7 @@ public class Skill {
      
     private double porcentaje;
    
-      @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_persona",nullable=false ) 
+    @ManyToOne() 
     private Persona persona;   
 
     public Skill() {

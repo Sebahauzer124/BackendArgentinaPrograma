@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="experiencias")
 public class Experiencia{
 
     @Id
@@ -34,8 +33,7 @@ public class Experiencia{
     
    private String imagenExp;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_persona", nullable=false) 
+    @ManyToOne()
     private Persona persona;
 
         public Experiencia(){};

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="educaciones")
+
 public class Educacion{
 
     @Id
@@ -28,8 +28,7 @@ public class Educacion{
    private String descEdu;
    private String imagenEdu;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_persona", nullable=false) 
+    @ManyToOne()
     private Persona persona;
 
     public Educacion() {
