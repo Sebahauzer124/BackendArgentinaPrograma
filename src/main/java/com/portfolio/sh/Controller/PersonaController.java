@@ -1,12 +1,16 @@
 
 package com.portfolio.sh.Controller;
 
-import com.portfolio.sh.Service.ImpPersonaService;
+
+
 import com.portfolio.sh.model.Persona;
+import com.portfolio.sh.service.IPersonaService;
+import com.portfolio.sh.service.PersonaService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,56 +18,54 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-@CrossOrigin(origins = "https://frontedprueba1.web.app")
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/personas")
 public class PersonaController {
-    private final ImpPersonaService impPersonaService;
-   
-    public PersonaController(ImpPersonaService impPersonaService){
-    this.impPersonaService=impPersonaService;
-}
-    @GetMapping("/id/{id}")
-    public ResponseEntity<Persona> obtenerPersona(@PathVariable("id")Long id){
-    Persona persona=impPersonaService.buscarPersona(id);
-    return new ResponseEntity<>(persona,HttpStatus.OK);
+    @Autowired
+    private PersonaService interPersona;
+    
+    @GetMapping("/personas/traer")
+    public List<Persona> getPersonas(){
+        return interPersona.getPersonas();
+   }    
+@GetMapping("/personas/traer/{id}")
+    public ResponseEntity<Persona> getById(@PathVariable("id") Long id) {
+       Persona persona= interPersona.findPersona(id);
+        return new ResponseEntity(persona, HttpStatus.OK);
     }
-   
-    @GetMapping("/all")
-    public ResponseEntity<List<Persona>> obtenerPersona(){
-    List <Persona> persona=impPersonaService.buscarPersona();
-    return new ResponseEntity<>(persona,HttpStatus.OK);
+
+  
+    @PostMapping("/personas/crear")
+    public ResponseEntity<Persona> createPersona (@RequestBody Persona perso){
+    interPersona.savePersona(perso);
+    return new ResponseEntity<>(perso,HttpStatus.CREATED);
     }
-   @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/update")
-    public ResponseEntity<Persona> editarPersona(@RequestBody Persona persona){
-    Persona updatePersona=impPersonaService.editarPersona(persona);
-    return new ResponseEntity<> (updatePersona,HttpStatus.OK);
-    }
-     
-    @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Persona> crearPersona(@RequestBody Persona persona){
-    Persona nuevoPersona=impPersonaService.addPersona(persona);
-    return new ResponseEntity<> (nuevoPersona,HttpStatus.CREATED);
-    }
-   @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> borrarPersona(@PathVariable("id") Long id){
-    impPersonaService.borrarPersona(id);
+
+    @DeleteMapping("/personas/borrar/{id}")
+    public ResponseEntity<?> deletePersona(@PathVariable ("id") Long id){
+    interPersona.deletePersona(id);
     return new ResponseEntity<>(HttpStatus.OK);
     }
-}
-
-
-
-                                
-     
-
-     
-     
-                                        
     
+    @PutMapping("/personas/editar/{id}")
+      public ResponseEntity<?> editarPersona(@PathVariable ("id") Long id,
+                                    @RequestBody Persona persona){
+    Persona perso=interPersona.findPersona(id);
+    
+   perso.setNombre(persona.getNombre());
+   perso.setApellido(persona.getApellido());
+   perso.setAcercaDe(persona.getAcercaDe());
+   perso.setImg(persona.getImg());
 
+   interPersona.savePersona(perso);
+   return new ResponseEntity(perso,HttpStatus.OK);
+                               
+    }
+         @GetMapping("personas/traer/perfil")
+    public Persona findPersona(){
+        return interPersona.findPersona((long)1);
+    }
+}

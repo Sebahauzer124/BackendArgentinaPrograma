@@ -1,0 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.portfolio.sh.Repository;
+
+import com.portfolio.sh.model.Educacion;
+import com.portfolio.sh.model.Experiencia;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ *
+ * @author Usuario
+ */
+@Repository
+public interface ExperienciaRepository extends JpaRepository<Experiencia,Long> {
+    
+}

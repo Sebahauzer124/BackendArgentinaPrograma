@@ -13,14 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Entity
-@Getter @Setter
+
 public class Persona {
 
     @Id
@@ -43,7 +42,7 @@ public class Persona {
     private String titulo;
     
     @JsonBackReference
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "persona")
     private List<Educacion> educacionList;
     @OneToMany(mappedBy = "persona")
     private List<Experiencia> experienciaList;
@@ -60,8 +59,84 @@ public class Persona {
         this.img = img;
         this.acercaDe = acercaDe;
         this.titulo = titulo;
+      
     }
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getAcercaDe() {
+        return acercaDe;
+    }
+
+    public void setAcercaDe(String acercaDe) {
+        this.acercaDe = acercaDe;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public List<Educacion> getEducacionList() {
+        return educacionList;
+    }
+
+    public void setEducacionList(List<Educacion> educacionList) {
+        this.educacionList = educacionList;
+    }
+
+    public List<Experiencia> getExperienciaList() {
+        return experienciaList;
+    }
+
+    public void setExperienciaList(List<Experiencia> experienciaList) {
+        this.experienciaList = experienciaList;
+    }
+
+    public List<Skill> getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(List<Skill> skillList) {
+        this.skillList = skillList;
+    }
+
+  
+
+    
  
  
 }

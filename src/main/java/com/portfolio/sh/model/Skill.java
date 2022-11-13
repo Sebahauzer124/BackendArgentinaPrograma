@@ -10,15 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name= "skills")
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long idSkill;
+   private Long id;
     
     
    private String tituloSkill;
@@ -35,20 +35,20 @@ public class Skill {
     public Skill() {
     }
 
-    public Skill(Long idSkill, String tituloSkill, String imagenSkill, double porcentaje) {
-        this.idSkill = idSkill;
+    public Skill(Long id, String tituloSkill, String imagenSkill, double porcentaje) {
+        this.id = id;
         this.tituloSkill = tituloSkill;
         this.imagenSkill = imagenSkill;
         this.porcentaje = porcentaje;
     }
 
-  
-
-    public Long getIdSkill() {
-        return idSkill;
+    public Long getId() {
+        return id;
     }
 
-  
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTituloSkill() {
         return tituloSkill;
@@ -74,15 +74,17 @@ public class Skill {
         this.porcentaje = porcentaje;
     }
 
-  
+    public Persona getPersona() {
+        return persona;
+    }
 
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
 
- 
+  
 
-
+    
     
     
 

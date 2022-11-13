@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 
 
@@ -19,7 +21,7 @@ public class Experiencia{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idExp;
+    private Long id;
     
     
    private String tituloExp;
@@ -38,20 +40,21 @@ public class Experiencia{
 
         public Experiencia(){};
 
-    public Experiencia(Long idExp, String tituloExp, String fechaExp, String descExp, String imagenExp) {
-        this.idExp = idExp;
+    public Experiencia(Long id, String tituloExp, String fechaExp, String descExp, String imagenExp, Persona persona) {
+        this.id = id;
         this.tituloExp = tituloExp;
         this.fechaExp = fechaExp;
         this.descExp = descExp;
         this.imagenExp = imagenExp;
+        this.persona = persona;
     }
 
-    public Long getIdExp() {
-        return idExp;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdExp(Long idExp) {
-        this.idExp = idExp;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTituloExp() {
@@ -95,14 +98,14 @@ public class Experiencia{
     }
 
 
+
+
+    
+
     
 
  
 
     
         
-}
- 
-    
-    
-   
+}  
