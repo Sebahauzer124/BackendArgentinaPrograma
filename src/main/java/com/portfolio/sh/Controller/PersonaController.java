@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,19 +38,21 @@ public class PersonaController {
         return new ResponseEntity(persona, HttpStatus.OK);
     }
 
-  
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/personas/crear")
     public ResponseEntity<Persona> createPersona (@RequestBody Persona perso){
     interPersona.savePersona(perso);
     return new ResponseEntity<>(perso,HttpStatus.CREATED);
     }
-
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/personas/borrar/{id}")
     public ResponseEntity<?> deletePersona(@PathVariable ("id") Long id){
     interPersona.deletePersona(id);
     return new ResponseEntity<>(HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/personas/editar/{id}")
       public ResponseEntity<?> editarPersona(@PathVariable ("id") Long id,
                                     @RequestBody Persona persona){

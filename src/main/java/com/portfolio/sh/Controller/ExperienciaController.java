@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,19 +43,21 @@ public class ExperienciaController {
         return new ResponseEntity(experiencia, HttpStatus.OK);
     }
 
-  
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/experiencia/crear")
     public ResponseEntity<Experiencia> createExperiencia (@RequestBody Experiencia experiencia){
     interExperiencia.saveExperiencia(experiencia);
     return new ResponseEntity<>(experiencia,HttpStatus.CREATED);
     }
-
+    
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/experiencia/borrar/{id}")
     public ResponseEntity<?> deleteExperiencia(@PathVariable ("id") Long id){
     interExperiencia.deleteExperiencia(id);
     return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+     @PreAuthorize("hasRole('ADMIN')")
      @PutMapping("/experiencia/editar/{id}")
       public ResponseEntity<?> editarExperiencia(@PathVariable ("id") Long id,
                                     @RequestBody Experiencia experiencia){
